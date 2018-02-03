@@ -1,10 +1,18 @@
-import * as PIXI from 'pixi.js/dist/pixi.js';
+import * as PIXI from 'pixi.js/dist/pixi';
+
+import {
+  ShockwaveFilter,
+  TwistFilter
+} from 'pixi-filters';
+
+//import 'pixi-filters';
+
 import {
   TimelineMax
 } from 'gsap';
 
 var app = new PIXI.Application(window.innerWidth, window.innerWidth, {
-  backgroundColor: 0x1099bb
+  backgroundColor: 0x000000
 });
 document.body.appendChild(app.view);
 
@@ -52,15 +60,34 @@ displacementFilter.scale.y = 300;
 
 textContainer.filters = [displacementFilter];
 
+let shock = new ShockwaveFilter();
+
+shock.center = [window.innerWidth / 2, window.innerHeight / 2];
+
+let twist = new TwistFilter();
+
+twist.angle = 0;
+twist.radius = 0;
+
+twist.offset.x = window.innerWidth / 2;
+twist.offset.y = window.innerHeight / 2;
+
+container.filters = [shock, twist];
 
 // Listen for animate update
 app.ticker.add(function(delta) {
   app.renderer.render(container);
 });
 
-let tl = new TimelineMax(
+let tl = new TimelineMax();
 
 tl
+  .to(shock, 2, {
+    time: 1
+  })
+  .to(shock, 2, {
+    time: 0
+  })
   .to(displacementFilter.scale, 1, {
     x: 0.1,
     y: 0.1
@@ -85,5 +112,9 @@ document.addEventListener('click', () => {
     }, 0)
     .to(basicText, 1, {
       alpha: 0
-    }, 0);
+    }, 0)
+    .to(twist, 1, {
+      angle: 20,
+      radius: 400
+    });
 });
