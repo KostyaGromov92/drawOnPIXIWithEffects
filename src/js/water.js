@@ -58,7 +58,7 @@ app.ticker.add(function(delta) {
   app.renderer.render(container);
 });
 
-let tl = new TimelineMax();
+let tl = new TimelineMax(
 
 tl
   .to(displacementFilter.scale, 1, {
