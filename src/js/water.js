@@ -1,6 +1,11 @@
-import { TimelineMax } from 'gsap';
+import * as PIXI from 'pixi.js/dist/pixi.js';
+import {
+  TimelineMax
+} from 'gsap';
 
-var app = new PIXI.Application(window.innerWidth, window.innerWidth, {backgroundColor : 0x1099bb});
+var app = new PIXI.Application(window.innerWidth, window.innerWidth, {
+  backgroundColor: 0x1099bb
+});
 document.body.appendChild(app.view);
 
 let container = new PIXI.Container();
@@ -56,15 +61,29 @@ app.ticker.add(function(delta) {
 let tl = new TimelineMax();
 
 tl
-  .to(displacementFilter.scale, 1, {x: 0.1, y: 0.1})
-  .to(basicText.position, 1, {x: 100},0)
-  .to(basicText, 1, {alpha: 1},0);
+  .to(displacementFilter.scale, 1, {
+    x: 0.1,
+    y: 0.1
+  })
+  .to(basicText.position, 1, {
+    x: 100
+  }, 0)
+  .to(basicText, 1, {
+    alpha: 1
+  }, 0);
 
 document.addEventListener('click', () => {
   let tl = new TimelineMax();
 
   tl
-    .to(displacementFilter.scale, 1, {x: 600, y: 200})
-    .to(basicText.position, 1, {x: 400},0)
-    .to(basicText, 1, {alpha: 0},0);
+    .to(displacementFilter.scale, 1, {
+      x: 600,
+      y: 200
+    })
+    .to(basicText.position, 1, {
+      x: 400
+    }, 0)
+    .to(basicText, 1, {
+      alpha: 0
+    }, 0);
 });
